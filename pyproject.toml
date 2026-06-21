@@ -8,28 +8,37 @@ version = "1.5.0"
 description = "Passive web security assessment toolkit for modern web applications"
 readme = "README.md"
 requires-python = ">=3.10"
-license = {text = "Proprietary - All Rights Reserved"}
+license = { text = "Proprietary - All Rights Reserved" }
 authors = [
-  {name = "S4W Project"}
+  { name = "S4W Project" }
 ]
-keywords = ["cybersecurity", "appsec", "osint", "recon", "headers", "hardening", "kali", "web-security"]
+keywords = [
+  "cybersecurity",
+  "appsec",
+  "osint",
+  "recon",
+  "headers",
+  "hardening",
+  "kali",
+  "web-security"
+]
 classifiers = [
   "Programming Language :: Python :: 3",
   "Environment :: Console",
   "Operating System :: POSIX :: Linux",
   "Operating System :: Microsoft :: Windows",
   "Topic :: Security",
-  "Topic :: Internet :: WWW/HTTP",
+  "Topic :: Internet :: WWW/HTTP"
 ]
 dependencies = [
   "beautifulsoup4>=4.12.0",
   "dnspython>=2.6.0",
   "requests>=2.31.0",
-  "rich>=13.7.0",
+  "rich>=13.7.0"
 ]
 
 [project.urls]
-Repository = "https://github.com/<your-user>/s4w"
+Repository = "https://github.com/silv4code/s4w"
 
 [project.scripts]
 s4w = "s4w.cli:main"
