@@ -1,4 +1,3 @@
-Save-TextNoBom ".\README.md" @'
 <p align="center">
   <img src="assets/s4w-logo.png" alt="S4W Logo" width="220">
 </p>
@@ -39,3 +38,136 @@ source .venv/bin/activate
 python -m pip install --upgrade pip
 pip install -e .
 s4w -help
+```
+
+---
+
+## Installation with pipx
+
+```bash
+sudo apt install pipx -y
+pipx ensurepath
+pipx install git+https://github.com/silv4code/s4w.git
+s4w -help
+```
+
+---
+
+## Basic usage
+
+Interactive mode:
+
+```bash
+s4w https://example.com
+```
+
+Non-interactive mode:
+
+```bash
+s4w https://example.com -y
+```
+
+Save JSON output:
+
+```bash
+mkdir -p reports
+s4w https://example.com -y --json reports/example.json
+```
+
+Focused subdomain analysis:
+
+```bash
+s4w -s app.example.com -v
+```
+
+Subdomain analysis with JSON output:
+
+```bash
+s4w -s app.example.com -v -y --json reports/app.json
+```
+
+Increase request timeout:
+
+```bash
+s4w https://example.com -y --timeout 25
+```
+
+Cleaner terminal output:
+
+```bash
+s4w https://example.com -y --no-details --json reports/example.json
+```
+
+---
+
+## Command-line options
+
+| Option | Description |
+|---|---|
+| `s4w` | Shows a short usage guide. |
+| `-h`, `--help`, `-help` | Shows help and quick examples. |
+| `-y`, `--yes` | Enables non-interactive mode. |
+| `-s`, `--subdomain` | Analyzes a specific authorized subdomain. |
+| `-v`, `--verbose` | Shows detailed output for subdomain findings. |
+| `--json` | Saves the result to a JSON file. |
+| `--timeout` | Sets HTTP request timeout in seconds. |
+| `--skip-whois` | Skips local WHOIS lookup. |
+| `--no-details` | Reduces long terminal details. |
+| `--version` | Shows the installed version. |
+
+---
+
+## Analysis modules
+
+### 1. Passive OSINT
+
+DNS records, TLS certificate information, WHOIS lookup, robots.txt and security.txt.
+
+### 2. Passive Recon
+
+Technologies, links, scripts, assets, forms, visible endpoints, public e-mails and inline JavaScript indicators.
+
+### 3. Endpoint Intelligence
+
+S4W classifies visible URLs and forms, prioritizing endpoints that receive parameters, suggest authentication, CRUD operations, upload flows, APIs, sensitive data flows or deployment artifacts.
+
+### 4. Web Hardening Review
+
+Security headers, cookie flags, CSP, exposure indicators, mixed content indicators and passive JavaScript risk indicators.
+
+### 5. Web Header Audit
+
+HTTP response status, CSP review, CORS review, missing browser protection headers and server-side policy visibility.
+
+### 6. Findings Correlation
+
+S4W consolidates findings with severity, confidence, evidence, impact, remediation, OWASP category, CWE reference and report-ready structure.
+
+---
+
+## Passive vulnerability indicators
+
+S4W can identify passive indicators associated with:
+
+- SQL Injection exposure patterns;
+- XSS and DOM XSS indicators;
+- CSRF protection gaps;
+- File Inclusion indicators;
+- Directory Traversal indicators;
+- Command Injection indicators;
+- Open Redirect indicators;
+- Broken Authentication indicators;
+- Insecure Direct Object Reference indicators;
+- Security Misconfiguration.
+
+These checks are based on observable patterns and should be validated manually in authorized environments before being treated as confirmed vulnerabilities.
+
+---
+
+## Legal notice
+
+S4W is provided for defensive security assessment, education, authorized testing and internal hardening review.
+
+Do not run it against third-party assets without permission.
+
+All rights reserved.
