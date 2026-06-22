@@ -54,7 +54,7 @@ sudo apt install git python3 python3-pip python3-venv whois -y
 Clone the repository:
 
 ```bash
-git clone https://github.com/YOUR_GITHUB_USERNAME/s4w.git
+git clone https://github.com/silv4code/s4w.git
 cd s4w
 ```
 
