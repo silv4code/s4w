@@ -9,7 +9,7 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/s4w-project/s4w/actions"><img alt="CI" src="https://img.shields.io/badge/ci-ready-2ea44f"></a>
+  <a href="https://github.com/silv4code/s4w"><img alt="CI" src="https://img.shields.io/badge/ci-ready-2ea44f"></a>
   <img alt="Python" src="https://img.shields.io/badge/python-3.10%2B-blue">
   <img alt="License" src="https://img.shields.io/badge/license-MIT-green">
   <img alt="Platform" src="https://img.shields.io/badge/platform-Kali%20Linux%20%7C%20Linux-lightgrey">
