@@ -5,7 +5,7 @@
 <h1 align="center">S4W</h1>
 
 <p align="center">
-  Passive Web Security Auditor for authorized web application reviews.
+  Web Security Auditor for authorized web application reviews.
 </p>
 
 <p align="center">
