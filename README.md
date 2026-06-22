@@ -1,77 +1,46 @@
 <p align="center">
-  <img src="assets/s4w-logo.png" alt="S4W Logo" width="220">
+  <img src="assets/s4w-logo.png" alt="S4W logo" width="240">
 </p>
 
 <h1 align="center">S4W</h1>
 
 <p align="center">
-  <strong>Passive Web Security Auditor for modern web applications.</strong>
+  Passive Web Security Auditor for authorized web application reviews.
 </p>
 
 <p align="center">
-  Security headers • Passive recon • Endpoint intelligence • Hardening review • Structured findings
+  <a href="https://github.com/s4w-project/s4w/actions"><img alt="CI" src="https://img.shields.io/badge/ci-ready-2ea44f"></a>
+  <img alt="Python" src="https://img.shields.io/badge/python-3.10%2B-blue">
+  <img alt="License" src="https://img.shields.io/badge/license-MIT-green">
+  <img alt="Platform" src="https://img.shields.io/badge/platform-Kali%20Linux%20%7C%20Linux-lightgrey">
 </p>
 
 ---
 
 ## Overview
 
-**S4W** is a terminal-based passive web security assessment toolkit designed to support initial security reviews, exposure analysis, hardening checks and structured reporting for web applications.
+**S4W** is a terminal-based passive web security assessment toolkit for initial web application reviews, exposure analysis, hardening checks, endpoint prioritization and structured reporting.
 
-The project focuses on observable application behavior, publicly reachable metadata and passive indicators that can help security teams, developers and analysts identify misconfigurations, weak hardening practices and potentially sensitive exposure points.
+It focuses on observable application behavior and publicly reachable metadata. S4W does **not** perform brute force, automatic exploitation, aggressive fuzzing, authentication bypass, destructive testing or stealth activity.
 
-S4W does **not** perform brute force, automatic exploitation, destructive testing, aggressive fuzzing, bypass attempts or intrusive attacks.
+Use it only on assets you own, controlled labs, bug bounty scopes that explicitly allow this activity, or environments where you have written authorization.
 
-Use it only on assets you own, controlled labs or environments where you have formal authorization.
+## What S4W Does
 
----
+- Collects passive OSINT signals such as DNS, TLS, WHOIS, `robots.txt` and `security.txt`.
+- Reviews visible HTML, assets, forms, scripts, links, e-mails and external domains.
+- Prioritizes endpoints based on parameters, auth flows, CRUD behavior, upload surfaces, APIs and sensitive indicators.
+- Audits web hardening controls such as security headers, cookies, CSP, mixed content and exposure indicators.
+- Produces terminal output and optional JSON reports suitable for triage or documentation.
 
-## Key Features
+## What S4W Does Not Do
 
-- Passive OSINT collection
-- DNS record inspection
-- TLS certificate visibility
-- Local WHOIS lookup when available
-- `robots.txt` and `security.txt` review
-- Passive technology detection
-- Link, asset, script and form discovery
-- Endpoint intelligence and prioritization
-- Web hardening checklist
-- Security header review
-- Cookie flag review
-- CSP and CORS review
-- Passive JavaScript risk indicators
-- Subdomain-focused assessment with `-s`
-- Structured findings with severity, confidence, evidence and remediation
-- JSON report export
-
----
-
-## Assessment Scope
-
-S4W can identify passive indicators related to:
-
-- Security Misconfiguration
-- Missing or weak security headers
-- Weak Content Security Policy
-- Clickjacking exposure
-- Cookie hardening issues
-- CORS misconfiguration indicators
-- CSRF protection gaps
-- XSS and DOM XSS indicators
-- SQL Injection exposure patterns
-- Open Redirect indicators
-- File Inclusion indicators
-- Directory Traversal indicators
-- Command Injection indicators
-- Broken Authentication indicators
-- Insecure Direct Object Reference indicators
-- Sensitive endpoint exposure
-- External resources without integrity controls
-
-Passive indicators should always be validated manually in authorized environments before being treated as confirmed vulnerabilities.
-
----
+- No brute force.
+- No password spraying.
+- No credential stuffing.
+- No exploit delivery.
+- No hidden path fuzzing.
+- No destructive or state-changing testing.
 
 ## Installation on Kali Linux
 
@@ -85,149 +54,85 @@ sudo apt install git python3 python3-pip python3-venv whois -y
 Clone the repository:
 
 ```bash
-git clone https://github.com/silv4code/s4w.git
+git clone https://github.com/YOUR_GITHUB_USERNAME/s4w.git
 cd s4w
 ```
 
-Create and activate a virtual environment:
+Run the installer:
 
 ```bash
-python3 -m venv .venv
+chmod +x install.sh
+./install.sh
+```
+
+Activate the virtual environment:
+
+```bash
 source .venv/bin/activate
 ```
 
-Install S4W:
-
-```bash
-python -m pip install --upgrade pip
-pip install -e .
-```
-
-Check the installation:
+Check the CLI:
 
 ```bash
 s4w --version
-```
-
-Open the quick help:
-
-```bash
-s4w
-```
-
-or:
-
-```bash
 s4w -help
 ```
 
----
-
 ## Installation with pipx
+
+`pipx` is a clean way to install CLI tools on Kali:
 
 ```bash
 sudo apt update
 sudo apt install git pipx whois -y
 pipx ensurepath
-pipx install git+https://github.com/silv4code/s4w.git
+pipx install git+https://github.com/YOUR_GITHUB_USERNAME/s4w.git
+```
+
+Then open a new terminal and run:
+
+```bash
 s4w -help
 ```
-
----
-
-## Windows Installation
-
-Clone the repository:
-
-```powershell
-cd $env:USERPROFILE\Downloads
-git clone https://github.com/silv4code/s4w.git
-cd s4w
-```
-
-Create and activate a virtual environment:
-
-```powershell
-py -m venv .venv
-Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
-.\.venv\Scripts\activate
-```
-
-Install S4W:
-
-```powershell
-pip install -e .
-```
-
-Run the tool:
-
-```powershell
-s4w --version
-s4w -help
-```
-
-If the `s4w` command is not available in your PATH, run it through Python:
-
-```powershell
-py -m s4w.cli --version
-py -m s4w.cli -help
-```
-
----
 
 ## Basic Usage
 
-Interactive assessment:
+Interactive mode:
 
 ```bash
 s4w https://example.com
 ```
 
-Non-interactive assessment:
+Non-interactive mode:
 
 ```bash
 s4w https://example.com -y
 ```
 
-Save JSON output:
+Save a JSON report:
 
 ```bash
 mkdir -p reports
 s4w https://example.com -y --json reports/example.json
 ```
 
-Focused subdomain assessment:
+Focused subdomain review:
 
 ```bash
 s4w -s app.example.com -v
 ```
 
-Subdomain assessment with JSON output:
-
-```bash
-mkdir -p reports
-s4w -s app.example.com -v -y --json reports/app.json
-```
-
-Increase request timeout:
-
-```bash
-s4w https://example.com -y --timeout 25
-```
-
-Reduce terminal details:
-
-```bash
-s4w https://example.com -y --no-details --json reports/example.json
-```
-
-Skip WHOIS lookup:
+Skip WHOIS:
 
 ```bash
 s4w https://example.com -y --skip-whois
 ```
 
----
+Run as a Python module:
+
+```bash
+python3 -m s4w https://example.com -y
+```
 
 ## Command-Line Options
 
@@ -235,91 +140,100 @@ s4w https://example.com -y --skip-whois
 |---|---|
 | `s4w` | Shows a short usage guide. |
 | `-h`, `--help`, `-help` | Shows help and quick examples. |
-| `-y`, `--yes` | Enables non-interactive mode. |
-| `-s`, `--subdomain` | Analyzes a specific authorized subdomain. |
-| `-v`, `--verbose` | Shows detailed output for subdomain findings. |
-| `--json` | Saves the result to a JSON file. |
+| `-y`, `--yes` | Runs all stages without interactive prompts. |
+| `-s`, `--subdomain` | Reviews a specific authorized subdomain. |
+| `-v`, `--verbose` | Shows detailed subdomain findings. |
+| `--json` | Saves results to a JSON file. |
 | `--timeout` | Sets HTTP request timeout in seconds. |
 | `--skip-whois` | Skips local WHOIS lookup. |
 | `--no-details` | Reduces long terminal details. |
 | `--version` | Shows the installed version. |
 
----
-
 ## Analysis Modules
 
-### 1. Passive OSINT
+### Passive OSINT
 
-Collects passive information such as DNS records, TLS certificate details, WHOIS output, `robots.txt` and `security.txt`.
+- DNS records: A, AAAA, MX, NS, TXT, CAA and SOA.
+- TLS certificate metadata.
+- Local WHOIS lookup when available.
+- `robots.txt`.
+- `security.txt`.
 
-### 2. Passive Recon
+### Passive Recon
 
-Identifies apparent technologies, internal and external links, scripts, stylesheets, images, iframes, forms, visible endpoints, public e-mails and JavaScript indicators.
+- Apparent technologies.
+- Internal and external links.
+- Scripts, CSS, images and iframes.
+- External domains.
+- Forms.
+- Relevant endpoints and URLs.
+- Public e-mails in HTML.
+- Inline JavaScript and event handlers.
 
-### 3. Endpoint Intelligence
+### Endpoint Intelligence
 
-Classifies visible URLs and forms, prioritizing endpoints that:
+S4W classifies visible URLs and forms, prioritizing endpoints that:
 
 - receive parameters;
 - suggest authentication, account, dashboard or administration flows;
-- suggest create, read, update or delete operations;
-- handle uploads, APIs, AJAX, checkout or sensitive workflows;
-- expose IDs, tokens, redirects or deployment artifacts.
+- suggest CRUD operations;
+- handle upload, checkout, API, AJAX or sensitive data flows;
+- expose IDs, tokens, redirects or deployment artifacts in URLs.
 
-### 4. Web Hardening Review
+### Web Hardening Review
 
-Reviews security headers, cookie flags, CSP posture, mixed content indicators, exposed technologies and passive JavaScript risk patterns.
+- Security headers.
+- Cookie flags: `Secure`, `HttpOnly` and `SameSite`.
+- Weak or incomplete CSP.
+- External resources without SRI.
+- Mixed content indicators.
+- Technology exposure.
+- Passive JavaScript risk indicators.
 
-### 5. Web Header Audit
+## Example JSON Finding
 
-Reviews HTTP response headers, browser-side protection policies, CSP, CORS and visible server-side configuration indicators.
-
-### 6. Findings Correlation
-
-Consolidates observations into structured findings containing:
-
-- severity;
-- confidence;
-- evidence;
-- impact;
-- remediation;
-- OWASP mapping;
-- CWE references;
-- report-ready output.
-
----
-
-## Output
-
-S4W provides terminal output and optional JSON export.
-
-Example:
-
-```bash
-s4w https://example.com -y --json reports/example.json
+```json
+{
+  "vulnerabilidade": "Missing Clickjacking Protection",
+  "gravidade": "Media",
+  "impacto": "The application can be embedded in a malicious iframe, increasing clickjacking risk.",
+  "remediacao": "Set Content-Security-Policy frame-ancestors and/or X-Frame-Options.",
+  "referencias": ["https://cwe.mitre.org/data/definitions/1021.html"],
+  "confianca": "Alta",
+  "categoria_owasp": "OWASP A05:2021 - Security Misconfiguration",
+  "cwe": ["CWE-1021"],
+  "evidencia": "Missing frame-ancestors and X-Frame-Options"
+}
 ```
 
-The JSON output is designed to support internal documentation, triage, technical reporting and security review workflows.
+## Publishing to GitHub
 
----
+From the project root:
 
-## Recommended Use Cases
+```bash
+git init
+git add .
+git commit -m "release: publish s4w passive web security auditor"
+git branch -M main
+git remote add origin https://github.com/YOUR_GITHUB_USERNAME/s4w.git
+git push -u origin main
+```
 
-- Initial web application security review
-- Passive external exposure assessment
-- Security header validation
-- Hardening checklist automation
-- Reconnaissance for authorized assessments
-- Endpoint prioritization before manual testing
-- Developer-focused remediation support
-- Lightweight security reporting
+After publishing, install from Kali:
 
----
+```bash
+git clone https://github.com/YOUR_GITHUB_USERNAME/s4w.git
+cd s4w
+chmod +x install.sh
+./install.sh
+source .venv/bin/activate
+s4w -help
+```
 
 ## Legal Notice
 
-S4W is intended for defensive security assessment, education, authorized testing and internal hardening review.
+S4W is provided for defensive security assessment, education, authorized testing and internal hardening review. Do not run it against third-party assets without explicit permission.
 
-Do not run this tool against third-party assets without explicit permission.
+## License
 
-All rights reserved.
+MIT. See [LICENSE](LICENSE).

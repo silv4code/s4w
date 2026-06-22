@@ -112,7 +112,7 @@ def main(argv: list[str] | None = None) -> int:
         started_at=now_iso(),
     )
 
-    full_result: dict = {"tool": "s4w", "version": __version__, "profile": "passive web security assessment", "rights": "All rights reserved", "context": ctx.__dict__, "alerts": [], "structured_findings": []}
+    full_result: dict = {"tool": "s4w", "version": __version__, "profile": "passive web security assessment", "license": "MIT", "use_policy": "authorized security assessment only", "context": ctx.__dict__, "alerts": [], "structured_findings": []}
     all_alerts: list[Alert] = []
     endpoint_findings: list[EndpointFinding] = []
     subdomain_findings: list[SubdomainFinding] = []
@@ -293,7 +293,7 @@ def _finish(args: argparse.Namespace, result: dict, alerts: list[Alert], endpoin
     if args.json_path:
         path = save_json(args.json_path, result)
         console.print(f"\n[green]JSON salvo em:[/green] {path}")
-    console.print("\n[bold red]S4W finalizado.[/bold red] [dim]All rights reserved.[/dim]")
+    console.print("\n[bold red]S4W finalizado.[/bold red] [dim]MIT License - authorized use only.[/dim]")
     return 0
 
 
